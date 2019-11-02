@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_redisgo" default="compile.module.redisgo">
+  <dirname property="module.redisgo.basedir" file="${ant.file.module_redisgo}"/>
+  
+  <property name="module.jdk.home.redisgo" value="${jdk.home.1.8.0_192}"/>
+  <property name="module.jdk.bin.redisgo" value="${jdk.bin.1.8.0_192}"/>
+  <property name="module.jdk.classpath.redisgo" value="jdk.classpath.1.8.0_192"/>
+  
+  <property name="compiler.args.redisgo" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="redisgo.output.dir" value="${module.redisgo.basedir}/out/production/redisgo"/>
+  <property name="redisgo.testoutput.dir" value="${module.redisgo.basedir}/out/test/redisgo"/>
+  
+  <path id="redisgo.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="redisgo.module.production.classpath">
+    <path refid="${module.jdk.classpath.redisgo}"/>
+  </path>
+  
+  <path id="redisgo.runtime.production.module.classpath">
+    <pathelement location="${redisgo.output.dir}"/>
+  </path>
+  
+  <path id="redisgo.module.classpath">
+    <path refid="${module.jdk.classpath.redisgo}"/>
+    <pathelement location="${redisgo.output.dir}"/>
+  </path>
+  
+  <path id="redisgo.runtime.module.classpath">
+    <pathelement location="${redisgo.testoutput.dir}"/>
+    <pathelement location="${redisgo.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.redisgo">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.redisgo">
+    <patternset refid="excluded.from.module.redisgo"/>
+  </patternset>
+  
+  
+  <target name="compile.module.redisgo" depends="compile.module.redisgo.production,compile.module.redisgo.tests" description="Compile module redisgo"/>
+  
+  <target name="compile.module.redisgo.production" depends="register.custom.compilers" description="Compile module redisgo; production classes"/>
+  
+  <target name="compile.module.redisgo.tests" depends="register.custom.compilers,compile.module.redisgo.production" description="compile module redisgo; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.redisgo" description="cleanup module">
+    <delete dir="${redisgo.output.dir}"/>
+    <delete dir="${redisgo.testoutput.dir}"/>
+  </target>
+</project>

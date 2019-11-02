@@ -1,0 +1,14 @@
+spring:
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+
+#log
+logging:
+  config: classpath:log/logback-springboot.xml
+
+base:
+  url: http://47.100.188.237/
+  Path: /data
